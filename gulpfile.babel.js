@@ -15,7 +15,7 @@ function Gclean() {
 }
 
 function Gcopy () {
-    return gulp.src(['./src/CSXS/*', './src/host/*'], { base: './src/'})
+    return gulp.src(['./src/CSXS/*', './src/host/*', './src/assets/*'], { base: './src/'})
         .pipe(gulp.dest('dist'))
 }
 
