@@ -1,5 +1,5 @@
 
-function openDocument(valueStr){
+function changeLayer(valueStr){
     // var fileRef = new File("~/Downloads/myFile.jpg");
     // var docRef = app.open(fileRef);
     // alert('test success')
