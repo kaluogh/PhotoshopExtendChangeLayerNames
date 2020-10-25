@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改图层名称</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section class="page page-theme1">
+        <!-- 1) Simple HTML UI elements to get us started -->
+        <h5 class="title">BKP 修改图层名称</h5>
+
+        <form id="form">
+
+            <div class="pathscontainer">
+                <p>要修改的路径：</p>
+                <input id="rootPath" name="path0" placeholder="输入路径" value="Root" type="text" disabled>
+            
+                <div class="otherpaths">
+                    <input id="path1" name="path1" placeholder="Path 1" value="Group" type="text" required>
+                </div>
+            
+                <div class="icons">
+                    <i id="addpath">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-add-circle"></use>
+                        </svg>
+                    </i>
+                    <i id="minuspath">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-minus-circle"></use>
+                        </svg>
+                    </i>
+                </div>
+            </div>
+
+            <div>
+                <p>是否处理子文件夹：</p>
+                <div class="radiocontainer">
+                    <label for="changechildrens_yes">YES</label>
+                    <input type="radio" name="changechildrens" value="yes" id="changechildrens_yes" checked>
+                    <label for="changechildrens_no">NO</label>
+                    <input type="radio" name="changechildrens" value="no" id="changechildrens_no">
+                </div>
+            </div>
+
+            <div>
+                <p>是否使用系统命名：</p>
+                <div class="radiocontainer">
+                    <label for="namemethods_yes">YES</label>
+                    <input type="radio" class="namemethods" name="namemethods" value="yes" id="namemethods_yes" checked>
+                    <label for="namemethods_no">NO</label>
+                    <input type="radio" class="namemethods" name="namemethods" value="no" id="namemethods_no">
+                </div>
+            </div>
+            
+            <div class="customameway" style="display: none;">
+                <input id="namewayvalue" name="namewayvalue" placeholder="图层命名" type="text">
+            </div>
+        
+            <!-- 2) A button -->
+            <div>
+                <button id="sendinfo" type="submit">一键修改</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="modalLayer"></section>
+
+    <section class="bgLayer"></section>
+
+    <!-- 3) Add your script dependencies here, including CEP's CSInterface.js library -->
+    <!-- <script type="text/javascript" src="../CSXS/CSInterface.js"></script> -->
+    <script src="./jquery.min.js"></script>
+    <script src="./assets/iconfont.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+</body>
+</html>
