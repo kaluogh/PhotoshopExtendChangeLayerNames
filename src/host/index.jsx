@@ -1,59 +1,84 @@
 
 function changeLayer(valueStr){
-    // var fileRef = new File("~/Downloads/myFile.jpg");
-    // var docRef = app.open(fileRef);
-    // alert('test success')
-
     // target photoshop
 
-    // alert(valueStr)
-    var ruleValue = valueStr.split(',')[0]
-    var nameValue = valueStr.split(',')[1]
-
-    // alert('recive ruleValue: ' + ruleValue)
-    // alert('recive nameValue: ' + nameValue)
+    var valueStrArray = valueStr.split('&')
+    var reciveValue = {
+        paths: []
+    }
+    valueStrArray.forEach(item => {
+        var tempArray = item.split('=')
+        var tempKey = tempArray[0]
+        var tempValue = tempArray[1]
+        if(tempKey.indexOf('path') > -1){
+            reciveValue.paths.push(tempValue)
+        }else{
+            reciveValue[tempKey] = tempValue
+        }
+    })
 
     app.bringToFront()
-    //alert(1)
-    if (documents.length == 0) {
-        alert("文件图层不对，稍后再试")
-    } else {
-        //alert(2)
-        var layers = activeDocument.layers;
-        // var groupStartWith = "Group "
-        var groupStartWith = ruleValue
-        if (layers.length == 1 && docRef.activeLayer.isBackgroundLayer == 1) {
-            alert("The Background layer can not be hidden when it is the only layer in a document.");
-        } else {
-            // trivelGroup(layers, 'Main')
-            for (var i = 0; i < layers.length; i++) {
+
+    function findTargetLayers(layers, deep, rpaths) {
+        if(deep >= rpaths.length){
+            return layers
+        }else{
+            var tempFlag = false
+            var tempLayers = null
+            for(var i = 0;i< layers.length;i++){
                 var tempItem = layers[i]
                 if(tempItem.grouped === undefined || tempItem.grouped === true){
-                    if(tempItem.name.substring(0,groupStartWith.length) == groupStartWith){
-                        // trivelGroup(tempItem.layers, tempItem.name.substring(groupStartWith.length))
-                        trivelGroup(tempItem.layers, nameValue)
+                    if(tempItem.name === rpaths[deep]){
+                        tempFlag = true
+                        tempLayers = tempItem.layers
+                        break
                     }
                 }
+            }
+            if(tempFlag){
+                var tempDeep = deep + 1
+                findTargetLayers(tempLayers, tempDeep, rpaths)
+            }else{
+                return []
             }
         }
     }
 
-    function trivelGroup(layers, nameAfter){
+    function dealTargetLayers (targetLayers, deepDeal, nameWayIsSystem, customName, fatherName) {
         var count = 0
-        for (var i = 0; i < layers.length; i++) {
-            var tempItem = layers[i]
+        for (var i = 0; i < targetLayers.length; i++) {
+            var tempItem = targetLayers[i]
             if(tempItem.grouped === true || tempItem.grouped === undefined){
                 if(tempItem && tempItem.layers && tempItem.layers.length > 0){
-                    trivelGroup(tempItem.layers, tempItem.name)
+                    if(deepDeal){
+                        dealTargetLayers(tempItem.layers, deepDeal, nameWayIsSystem, customName, tempItem.name)
+                    }
                 }
             }else{
                 if(!tempItem.isBackgroundLayer){
-                    // tempItem.name = nameAfter + "_" + count
-                    tempItem.name = nameAfter + count
+                    if(!nameWayIsSystem){
+                        tempItem.name = customName + count
+                    }else{
+                        tempItem.name = fatherName + count
+                    }
                     count ++
                 }
             }
         }
     }
+
+    if (documents.length == 0 || (activeDocument.layers.length == 1 && docRef.activeLayer.isBackgroundLayer == 1)) {
+        alert("没有要处理的图层")
+    } else {
+        var targetLayers = findTargetLayers(activeDocument.layers, 0, reciveValue.paths)
+        if(targetLayers && targetLayers.length > 0){
+            var tempDeepDeal = reciveValue.changechildrens == "yes"
+            var tempNameWayIsSystem = reciveValue.namemethods == "yes"
+            var tempCustomName = tempNameWayIsSystem? reciveValue.namewayvalue: null
+            var tempFatherName = "root"
+            dealTargetLayers(targetLayers, tempDeepDeal, tempNameWayIsSystem, tempCustomName, tempFatherName)
+        }
+    }
+
 }
 

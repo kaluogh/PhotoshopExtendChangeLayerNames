@@ -39,19 +39,15 @@ $(document).ready(function () {
     e.preventDefault();
     debugger
     let valueStr = $(this).serialize()
-    let tempObj = {
-      a: 1,
-      b: 2
-    }
-    sendMessage(tempObj)
+    sendMessage(valueStr)
   });
 
   /* 3) Write a helper function to pass instructions to the ExtendScript side. */
-  function sendMessage(tempObj) {
+  function sendMessage(valueStr) {
     if(csInterface){
-      csInterface.evalScript("changeLayer('" + 'todo' + "')")
+      csInterface.evalScript("changeLayer('" + valueStr + "')")
     }
-    eval("testEval('" + JSON.stringify(tempObj) + "')")
+    // eval("testEval('" + JSON.stringify(tempObj) + "')")
   }
 
   function testEval(tempObj){
