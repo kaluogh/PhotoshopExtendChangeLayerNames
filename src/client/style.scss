@@ -95,8 +95,41 @@ body{
             }
         }
 
+        input[type="radio"]{
+            display: none;
+            border-radius: 0.4rem;
+            & + span{
+                padding: 0.1rem 0.4rem;
+                border: 2px solid transparent;                
+                border-radius: 0.4rem;
+            }
+            &:checked  + span{
+                border: 2px solid #FB7299;
+            }
+        }
+
         input:disabled{
             background-color: rgba(112,77,174, 0.25);
+        }
+
+        .radiocontainer{
+            width: 85%;
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding: 0.1rem 0.2rem;
+            input{
+                margin: 0 1rem;
+                zoom: 140%;
+                opacity: 0.6;
+            }
+            span{
+                font-size: 0.8rem;
+                display: inline-block;
+                margin-right: 1rem;
+            }
         }
     
         .pathscontainer{
@@ -111,28 +144,20 @@ body{
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
+                margin-top: 0.2rem;
                 margin-bottom: 0.5rem;
                 i{
                     font-size: 1.5rem;
                     margin-left: 0.75rem;
+                    border: 2px solid rgba($color: #FB7299, $alpha: 0.7);
+                    border-radius: 4px;
+                    background-color: rgba($color: #FB7299, $alpha: 0.2);
+                    line-height: 1;
+                    padding: 0.1rem 0.1rem;
                     &:hover{
                         cursor: pointer;
                     }
                 }
-            }
-        }
-    
-        .radiocontainer{
-            width: 85%;
-            display: flex;
-            flex-direction: row;
-            justify-content: start;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            input{
-                margin: 0 1rem;
-                zoom: 140%;
-                opacity: 0.6;
             }
         }
     
