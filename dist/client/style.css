@@ -57,67 +57,69 @@ body {
       display: flex;
       flex-direction: column;
       align-items: center; }
-  .page p {
-    display: block;
-    width: 85%;
-    font-weight: bolder;
-    color: #704dae;
-    margin-top: 0;
-    margin-bottom: 0.5rem; }
-  .page input[type="text"] {
-    display: block;
-    width: 85%;
-    height: 1.8rem;
-    border-radius: 0.35rem;
-    margin-bottom: 0.875rem;
-    color: #2C94E4;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    border: 2px solid #70c69d;
-    background-color: rgba(239, 239, 239, 0.6); }
-    .page input[type="text"]::-moz-placeholder {
-      color: #797f84; }
-    .page input[type="text"]:-ms-input-placeholder {
-      color: #797f84; }
-    .page input[type="text"]::placeholder {
-      color: #797f84; }
-  .page .pathscontainer input {
-    margin-bottom: 0.5rem; }
-  .page .pathscontainer input:last-child {
-    margin-bottom: 0.2rem; }
-  .page .pathscontainer .icons {
-    width: 85%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-bottom: 0.5rem; }
-    .page .pathscontainer .icons i {
-      font-size: 1.5rem;
-      margin-left: 0.75rem; }
-      .page .pathscontainer .icons i:hover {
+    .page form p {
+      display: block;
+      width: 85%;
+      font-weight: bolder;
+      color: #704dae;
+      margin-top: 0;
+      margin-bottom: 0.5rem; }
+    .page form input[type="text"] {
+      display: block;
+      width: 85%;
+      height: 1.8rem;
+      border-radius: 0.35rem;
+      margin-bottom: 0.875rem;
+      color: #2C94E4;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      border: 2px solid #70c69d;
+      background-color: rgba(239, 239, 239, 0.6); }
+      .page form input[type="text"]::-moz-placeholder {
+        color: #797f84; }
+      .page form input[type="text"]:-ms-input-placeholder {
+        color: #797f84; }
+      .page form input[type="text"]::placeholder {
+        color: #797f84; }
+    .page form input:disabled {
+      background-color: rgba(112, 77, 174, 0.25); }
+    .page form .pathscontainer input {
+      margin-bottom: 0.5rem; }
+    .page form .pathscontainer input:last-child {
+      margin-bottom: 0.2rem; }
+    .page form .pathscontainer .icons {
+      width: 85%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-bottom: 0.5rem; }
+      .page form .pathscontainer .icons i {
+        font-size: 1.5rem;
+        margin-left: 0.75rem; }
+        .page form .pathscontainer .icons i:hover {
+          cursor: pointer; }
+    .page form .radiocontainer {
+      width: 85%;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      margin-bottom: 0.5rem; }
+      .page form .radiocontainer input {
+        margin: 0 1rem;
+        zoom: 140%;
+        opacity: 0.6; }
+    .page form button {
+      margin-top: 1rem;
+      display: block;
+      width: 85%;
+      height: 2rem;
+      background-color: #2c94e4;
+      color: white;
+      border-radius: 0.5rem;
+      border: none; }
+      .page form button:hover {
         cursor: pointer; }
-  .page .radiocontainer {
-    width: 85%;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    margin-bottom: 0.5rem; }
-    .page .radiocontainer input {
-      margin: 0 1rem;
-      zoom: 140%;
-      opacity: 0.6; }
-  .page button {
-    margin-top: 1rem;
-    display: block;
-    width: 85%;
-    height: 2rem;
-    background-color: #2c94e4;
-    color: white;
-    border-radius: 0.5rem;
-    border: none; }
-    .page button:hover {
-      cursor: pointer; }
 
 .modalLayer {
   position: absolute;
