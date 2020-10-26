@@ -56,8 +56,12 @@ body{
         max-height: 100%;
         padding: 1rem 0.5rem 1rem;
         overflow-y: auto;
-        *{
-            outline: none;
+        input:focus, input:active, button:focus, button:active{
+            // outline: none;
+            outline-style: solid;
+            outline-width: 2px;
+            outline-color: #FB7299;
+            outline-offset: -2px;
         }
         div{
             width: 100%;

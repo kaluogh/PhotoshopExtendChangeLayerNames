@@ -50,8 +50,11 @@ body {
     max-height: 100%;
     padding: 1rem 0.5rem 1rem;
     overflow-y: auto; }
-    .page form * {
-      outline: none; }
+    .page form input:focus, .page form input:active, .page form button:focus, .page form button:active {
+      outline-style: solid;
+      outline-width: 2px;
+      outline-color: #FB7299;
+      outline-offset: -2px; }
     .page form div {
       width: 100%;
       display: flex;
