@@ -1,12 +1,13 @@
 
 function changeLayer(valueStr){
     // target photoshop
-
-    var valueStrArray = valueStr.split('&')
+    var valueStrArray = decodeURIComponent(valueStr).split('&')
     var reciveValue = {
         paths: []
     }
-    valueStrArray.forEach(item => {
+
+    for(var m = 0; m < valueStrArray.length; m++){
+        var item = valueStrArray[m]
         var tempArray = item.split('=')
         var tempKey = tempArray[0]
         var tempValue = tempArray[1]
@@ -15,13 +16,25 @@ function changeLayer(valueStr){
         }else{
             reciveValue[tempKey] = tempValue
         }
-    })
+    }
+
+    reciveValue.paths.unshift('root')
+    reciveValue.changechildrens = reciveValue.changechildrens == 'yes'
+    reciveValue.namemethods = reciveValue.namemethods == 'yes'  
 
     app.bringToFront()
 
     function findTargetLayers(layers, deep, rpaths) {
+        var result = {
+            list: [],
+            listName: ''
+        };
         if(deep >= rpaths.length){
-            return layers
+            // alert('test length: ' + layers.length)
+            result = {
+                list: layers,
+                listName: rpaths[rpaths.length - 1]
+            }
         }else{
             var tempFlag = false
             var tempLayers = null
@@ -37,14 +50,25 @@ function changeLayer(valueStr){
             }
             if(tempFlag){
                 var tempDeep = deep + 1
-                findTargetLayers(tempLayers, tempDeep, rpaths)
+                // alert(tempLayers.length)
+                // alert(tempDeep)
+                // alert(rpaths.length)
+                result = findTargetLayers(tempLayers, tempDeep, rpaths)
             }else{
-                return []
+                result = {
+                    list: [],
+                    listName: ''
+                }
             }
         }
+        return result
     }
 
     function dealTargetLayers (targetLayers, deepDeal, nameWayIsSystem, customName, fatherName) {
+        // alert(deepDeal)
+        // alert(nameWayIsSystem)
+        // alert(customName)
+        // alert(fatherName)
         var count = 0
         for (var i = 0; i < targetLayers.length; i++) {
             var tempItem = targetLayers[i]
@@ -56,10 +80,10 @@ function changeLayer(valueStr){
                 }
             }else{
                 if(!tempItem.isBackgroundLayer){
-                    if(!nameWayIsSystem){
-                        tempItem.name = customName + count
-                    }else{
+                    if(nameWayIsSystem){
                         tempItem.name = fatherName + count
+                    }else{
+                        tempItem.name = customName + count
                     }
                     count ++
                 }
@@ -70,13 +94,17 @@ function changeLayer(valueStr){
     if (documents.length == 0 || (activeDocument.layers.length == 1 && docRef.activeLayer.isBackgroundLayer == 1)) {
         alert("没有要处理的图层")
     } else {
-        var targetLayers = findTargetLayers(activeDocument.layers, 0, reciveValue.paths)
+        // alert('test6')
+        var tempResult = findTargetLayers(activeDocument.layers, 1, reciveValue.paths)
+        var targetLayers = tempResult.list
+        var targetName = tempResult.listName
+        // alert(targetLayers.length)
+        // alert('test7')
         if(targetLayers && targetLayers.length > 0){
-            var tempDeepDeal = reciveValue.changechildrens == "yes"
-            var tempNameWayIsSystem = reciveValue.namemethods == "yes"
-            var tempCustomName = tempNameWayIsSystem? reciveValue.namewayvalue: null
-            var tempFatherName = "root"
-            dealTargetLayers(targetLayers, tempDeepDeal, tempNameWayIsSystem, tempCustomName, tempFatherName)
+            var tempCustomName = reciveValue.namewayvalue ? reciveValue.namewayvalue : ''
+            // alert('test8')
+            dealTargetLayers(targetLayers, reciveValue.changechildrens, reciveValue.namemethods, tempCustomName, targetName)
+            // alert('test9')
         }
     }
 
